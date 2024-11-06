@@ -1,3 +1,4 @@
+import os
 import requests
 from datetime import datetime
 from flask import Flask, request
@@ -6,13 +7,12 @@ from twilio.twiml.messaging_response import MessagingResponse
 app = Flask(__name__)
 
 def get_location():
-    # Code to retrieve location remains the same
     latitude = 22.7264
     longitude = 88.4753
     url = "https://api.opencagedata.com/geocode/v1/json"
     params = {
         "q": f"{latitude},{longitude}",
-        "key": "105ae62c16824b05955a777220824fdb",
+        "key": os.getenv("OPENCAGE_API_KEY"),  # Environment variable
         "pretty": 1
     }
     response = requests.get(url, params=params)
